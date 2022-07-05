@@ -20,7 +20,7 @@ For each additional component added to the workflow, it should be tested with th
 A file describing what the test is for, locations of test data and all params needed including config_profile_name and config_profile_description
 
 An example is saved as test_illumina.config: 
-![[images/test_example.png]]
+<img src="./images/test_example.png" width=800>
 
 In the case of treeval we'll need an input for:
 - current gEVAL yaml or future TreeVal yaml
@@ -62,25 +62,35 @@ Infrastructure team very much like atomicity and issue tracking.
 When beginning work on your workflow, first you should set out your plan in a workflow master GitHub Issue detailing everything you'll be doing.
 
 Example from variant calling:
-![[images/master_issue.png]]
+<img src="./images/master_issue.png" width=800>
 
 This should make note of what data it will use, and what the output will be. It should also contain a list of modules that either need to be written or those that already exist as well as a link to their main.nf in nf-core-modules.
 
 Then each item on that list should have then have a child issue for when you are working on that item.
 For example:
-![[images/child_issue.png]]
+
+<img src="./images/child_issue.png" width=800>
 
 So in our case there should be:
+
+```markdown
 1. TreeVal Pipeline Plan Issue #1
+
 	1-1. Synteny Plan - Probably doesn't need a further child issue due to simplicitiy #2
+	
 	1-2. Gene Alignment Plan #3
-		1-2-1. Building custom python for X #4
-		1-2-2. Building module for BLASTN #5
 		
+		1-2-1. Building custom python for X #4
+		
+		1-2-2. Building module for BLASTN #5
+```
+
 Each issue on should link to it's parent on commit.
 
 Another Example:
+
 - Say i build my fancy BLASTN module my commit message would be
+
 ```bash
 git commit modules/fancy_blast.nf -m 'Built fancy_blast, effects issues #5 #3 #1, closes #5'
 ```
@@ -89,7 +99,9 @@ GitHub will link it all up and close the referenced issue.
 
 ## E. CHECKOUT
 Please don't work on main branch.
+
 Think of a branch name that accurately describes what your working on (this is my prefered method, as we don't have to worry about multiple people working on it), you can use `dev` but make sure no one else is using it.
+
 ```bash
 git branch -a #lists all branches
 git checkout {Your_chosen_name} #Makes new branch
@@ -97,6 +109,7 @@ git branch # To double check your current branch
 ```
 
 ## F. Installing modules
+
 If your workflow needs a module nf-core makes it easy, as long as your env is set up propper, see [[#C Set your env]].
 
 ```bash
@@ -116,8 +129,7 @@ So you have your example data, your env is set up and your issues are open you c
 Your Sub workflows will be written here: `treeval_pipelines/subworkflows/local/{what_ever_you_want_to_name_your_workflow}`
 
 In this style:
-
-![[images/subworkflow_example.png]]
+<img src="./images/subworkflow_example.png" width=800>
 
 There is your workflow descriptor, module imports, workflow statement.
 
@@ -126,11 +138,14 @@ Your worflow statement will include your `take` which will pull specified data f
 Write and commit, job 1 of x done.
 
 ## H.  WORKFLOW
+
 Now you need to edit the workflow file.
+
 Open `treeval_pipelines/workflows/treeval.nf` 
 
 Add an `include` for your subworkflow here:
-![[images/include_example.png]]
+
+<img src="./images/include_example.png" width=800>
 
 You won't need to once again `include` your modules here, as that will be done in you're subworkflow.
 
@@ -178,6 +193,7 @@ Once solved you'll need to go back through [[#I Linting]] and [[#J Testing]] and
 Now you have written something that works, is linted, passes the tests and outputs your final files. Congrats.
 
 Add all of your new files:
+
 ```bash
 git add {relative_path_to_new_file}
 ```
@@ -185,11 +201,13 @@ git add {relative_path_to_new_file}
 You can do this for all of your NEW files.
 
 And now either:
+
 ```bash
 git commit -am "All my work for issues #1 #3 #5, closes #5"
 ```
 
 Or do it atomically:
+
 ```bash
 git commit {relative_path_to_modified_file} -m "Editted for blah effects issue #1 #3 #5"
 ```
@@ -203,6 +221,7 @@ You'll notice that if you try to `git push` it will through an error because on 
 So you are ready to merge.
 
 Go to GitHub and nav to your branch:
+
 ```bash
 https://github.com/DLBPointon/treeval_pipeline/tree/{BRANCH NAME}
 ```
