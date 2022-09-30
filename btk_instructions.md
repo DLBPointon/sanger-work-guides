@@ -73,7 +73,7 @@ cd /lustre/scratch123/tol/teams/grit/btk_runs/data/ilYpoCagn1Hap
 
 Check the config for errors that WILL kill the pipe
 
-Step 4 - Run the pipeline
+## Step 4 - Run the pipeline
 
 For btk 2.6.3 (new)
 Note
@@ -85,4 +85,54 @@ ASSEMBLY=ilYpoCagn1Pri TRANSFER=true bsub < /nfs/team135/yy5/btk_sig/run_pipelin
 cd /lustre/scratch123/tol/teams/grit/btk_runs/data/ilYpoCagn1Hap
 
 ASSEMBLY=ilYpoCagn1Hap TRANSFER=true bsub < /nfs/team135/yy5/btk_sig/run_pipeline_263.sh
+```
+
+## Step 5 - REVISION
+
+The server has been decommissioned, Guoying (gq2) has set the btk viewer up as a kubernetes server.
+
+Primary
+Note
+```
+cd /lustre/scratch123/tol/teams/grit/btk_runs/result/ilYpoCagn1Pri
+
+tar -xvf ilYpoCagn1Pri.tar
+
+gunzip ilYpoCagn1Pri/*
+
+cp -r ilYpoCagn1Pri /lustre/scratch123/tol/share/grit-btk-prod/blobplots/ilYpoCagn1Pri
+
+chmod -R g+w /lustre/scratch123/tol/share/grit-btk-prod/blobplots/ilYpoCagn1Pri
+
+gzip ilYpoCagn1Pri/*
+```
+
+Haplo
+Note
+```
+cd /lustre/scratch123/tol/teams/grit/btk_runs/result/ilYpoCagn1Hap
+
+tar -xvf ilYpoCagn1Hap.tar
+
+gunzip ilYpoCagn1Hap/*
+
+cp -r ilYpoCagn1Hap /lustre/scratch123/tol/share/grit-btk-prod/blobplots/ilYpoCagn1Hap
+
+chmod -R g+w /lustre/scratch123/tol/share/grit-btk-prod/blobplots/ilYpoCagn1Hap
+
+gzip ilYpoCagn1Hap/*
+```
+
+## Step 6 - Post to Jira
+```
+BTK DONE
+[Pri|https://grit-btk.tol.sanger.ac.uk/ilYpoCagn1Pri/dataset/ilYpoCagn1Pri/blob?plotShape=circle&zScale=scaleLog#Settings]
+[Hap|https://grit-btk.tol.sanger.ac.uk/ilYpoCagn1Hap/dataset/ilYpoCagn1Hap/blob?plotShape=circle&zScale=scaleLog#Settings]
+
+```
+
+## Step 7 - Update the Site index
+This is internal only so no bad actors can mess with it.
+```
+curl -s 'https://grit-btk-api.tol.sanger.ac.uk/api/v1/search/reload/testkey%20npm%20start'
 ```
